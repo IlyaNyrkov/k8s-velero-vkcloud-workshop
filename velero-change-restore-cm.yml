@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: change-image-name-config
+  namespace: velero
+  labels:
+    velero.io/plugin-config: ""
+    velero.io/change-image-name: RestoreItemAction
+data:
+  # добавляем строки с любым ключом и значением <старое имя образа>,<новое имя образа>
+  "case1":"nginx:latest,nginx:1.25"
+  # Если заменяемое слово повторяется в некоторых именах более двух раз, рекомендуется другое форматирвание
+  # Пусть старые имена
+  # dev/image1:dev и dev/image2:dev
+  # нужно заменить на:
+  # test/image1:dev и test/image2:dev
+  # тогда необходимо воспользоваться правилом:
+  "case5":"dev/,test/"
+  # вместо case5":"dev,test"
+  # в таком случае второй dev не будет изменён
